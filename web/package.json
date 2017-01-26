@@ -1,0 +1,23 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0",
+    "fs-extra": "^2.0.0",
+    "handlebars": "^4.0.6",
+    "lodash": "^4.17.4",
+    "marked": "^0.3.6",
+    "node-sass": "^4.3.0",
+    "node-static": "^0.7.9",
+    "shortcode-parser": "0.0.1",
+    "yaml-front-matter": "^3.4.0"
+  }
+}
