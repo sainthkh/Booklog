@@ -71,6 +71,7 @@ class Generator {
 		if(path.basename(dir)[0] == '_') return
 
 		let toc = this.buildTOC(dir)
+		this.setNextPost(toc)
 		fs.readdirSync(dir).forEach(name => {
 			let fullPath = path.join(dir, name)
 			let stat = fs.statSync(fullPath)
@@ -153,6 +154,19 @@ class Generator {
 
 			dir = path.join(dir, '..')
 		}
+	}
+
+	setNextPost(toc) {
+		toc.forEach((entry, i) => {
+			if(_.isEmpty(entry.sub)) {
+				if (i + 1 < toc.length) {
+					this.posts[entry.file].next = toc[i+1]
+				}
+			} else {
+				this.posts[entry.file].next = entry.sub[0]
+				this.setNextPost(entry.sub)
+			}
+		})
 	}
 }
 
