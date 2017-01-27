@@ -183,7 +183,7 @@ body {
 			.cube-plane {
 				position: absolute;
 				width: 100%;
-				height: 8em;
+				height: 13em;
 				border-radius: 0.5em;
 				padding: 1em;
 				box-sizing: border-box;
@@ -196,6 +196,10 @@ body {
 				.cta {
 					font-size: 1.2em;
 					margin-bottom: 1em;
+				}
+
+				@media(min-width: 700px) {
+					height: 8em;
 				}
 			}
 
@@ -220,8 +224,33 @@ body {
 		}
 
 		.signup-form {
+			input, button {
+				width: 100%;
+				font-size: 1.2em;
+				box-sizing: border-box;
+			}
+
 			input {
-				font-size: 1.2em;	
+				padding-left: 0.5em;
+				margin-bottom: 0.5em;
+			}
+
+			@media(min-width: 700px) {
+				#firstName {
+					width: 28%;
+				}
+
+				#email {
+					width: 45%;
+				}
+
+				#firstName, #email {
+					margin-right: 2%;
+				}
+
+				#join {
+					width: 20%;
+				}
 			}
 		}
 	}
