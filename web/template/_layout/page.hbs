@@ -1,0 +1,74 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>{{title}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="">
+	<meta name="generator" content="Booklog">
+
+	<link rel="stylesheet" href="/style.css" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+</head>
+<body id="body">
+	<div id="toc" class="toc-wrap">
+		<div class="back-to-main">
+			<a href="/"><div class="back-wrap"><i class="fa fa-arrow-left" aria-hidden="true"></i><span class="back-text">Back</span></div></a>
+		</div>
+		<div>{{{toc}}}</div>
+	</div>
+	<div id="main" class="main">
+		<div class="menu">
+			<div class="menu-button">
+				<a href="#" onclick="showTOC()"><i class="fa fa-bars" aria-hidden="true"></i></a>
+			</div>
+			<span class="menu-right">
+				<div class="menu-button">
+					<a href="#" onclick="toggleMode()"><i class="fa fa-moon-o" aria-hidden="true"></i></a>
+				</div>
+				<div class="menu-button">
+					<a href="#" class="font-btn" onclick="showFontSizeMenu()"><i class="fa fa-font" aria-hidden="true"></i></a>
+					<div id="font-sizes" class="dropdown-content">
+						<a href="#" onClick="changeFontSize(1)">1.0</a>
+						<a href="#" onClick="changeFontSize(1.2)">1.2</a>
+						<a href="#" onClick="changeFontSize(1.5)">1.5</a>
+						<a href="#" onClick="changeFontSize(1.8)">1.8</a>
+						<a href="#" onClick="changeFontSize(2)">2</a>
+					</div>
+				</div>
+			</span>
+		</div>
+		<div class="content-wrap">
+			<div class="title">
+				<h1 class="text">{{title}}</h1>
+			</div>
+			<div class="content">{{{content}}}</div>
+			<div class="container-3d-box">
+				<div id="cube" class="cube">
+					<div class="success cube-plane">
+						<div class="cta">Thank you for signing up. I sent welcome email to your inbox. Please check it out.</div>
+					</div>
+					<div class="signup-form cube-plane">
+						<div class="cta">Do you want to get free updates? Join here!</div>
+						<form action="/subscribe" name="signup" method="POST" onsubmit="submitSubscriber(event)">
+							<input type="hidden" name="domain" value="" />
+							<input type="text" name="firstName" placeholder="first name" required />
+							<input type="email" name="email" placeholder="your-best@email.com" required />
+							<input type="submit" value="Join" />
+						</form>
+					</div>
+				</div>
+			</div>
+			{{#if next}}
+			<div class="next">
+				<span class="text">Next: </span>
+				<span class="next-title">{{next.name}}</span>
+				<span class="button"><a href="{{next.path}}">Read Next</a></span>
+			</div>
+			{{/if}}
+		</div>
+	</div>
+	<script src="/code.js"></script>
+</body>
+</html>
