@@ -5,6 +5,7 @@ const path = require('path')
 
 const Generator = require('./commands/build')
 const { run } = require('./commands/server')
+const { copy } = require('./commands/init')
 
 program
 	.version('0.0.1')
@@ -20,6 +21,12 @@ program
 	.command('server [dir]')
 	.action((dir, options) => {
 		run(fullPath(dir))
+	})
+
+program
+	.command('init [dir]')
+	.action((dir, options) => {
+		copy(fullPath(dir))
 	})
 
 // Parse and fallback to help if no args
