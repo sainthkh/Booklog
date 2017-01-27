@@ -20,6 +20,8 @@ class Generator {
 	generate() {
 		console.log('compiling scss')
 		this.compileSCSS()
+		console.log('copying code.js')
+		this.copyCode()
 		console.log(`compiling contents`)
 		this.loadShortcodes()
 		this.build(this.rootDir)
@@ -35,6 +37,12 @@ class Generator {
 		let cssPath = path.join(this.rootDir, "_book/style.css")
 		fs.ensureFileSync(cssPath)
 		fs.writeFileSync(cssPath, result.css)
+	}
+
+	copyCode() {
+		var from = path.join(this.rootDir, "_layout/code.js")
+		var to = path.join(this.rootDir, "_book/code.js")
+		fs.copySync(from, to)
 	}
 
 	loadShortcodes() {
