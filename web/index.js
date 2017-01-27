@@ -3,8 +3,8 @@ const _ = require('lodash')
 
 const path = require('path')
 
-const Generator = require('./generator')
-const { run } = require('./server')
+const Generator = require('./commands/build')
+const { run } = require('./commands/server')
 
 program
 	.version('0.0.1')

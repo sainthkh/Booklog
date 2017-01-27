@@ -12,6 +12,8 @@ function run(dir) {
 				file.serve(request, response);
 			}).resume();
 		}).listen(8080);
+		console.log('Server started at http://localhost:8080')
+		console.log(`This command is for test only. Don't use it for your product.`)
 	} else {
 		console.log('Directory is not compiled. Compile it first by "booklog build"')
 	}
