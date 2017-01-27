@@ -21,6 +21,7 @@ class Generator {
 		console.log('compiling scss')
 		this.compileSCSS()
 		console.log(`compiling contents`)
+		this.loadShortcodes()
 		this.build(this.rootDir)
 		console.log('generating files')
 		this.generateFiles(this.rootDir)
@@ -37,7 +38,7 @@ class Generator {
 	}
 
 	loadShortcodes() {
-		let codePath = path.join(this.rootDir, 'shortcodes.js')
+		let codePath = path.join(this.rootDir, '_layout', 'shortcodes.js')
 		if(fs.existsSync(codePath)) {
 			let codes = require(codePath)
 			Object.keys(codes).forEach(name => {
