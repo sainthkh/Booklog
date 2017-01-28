@@ -89,9 +89,10 @@ class Generator {
 			} else {
 				if(path.extname(name) == '.md') {
 					let post = this.posts[fullPath]
-					let layout = fs.readFileSync(post.layout || 
-						path.join(this.rootDir, '_layout/page.hbs'))
-						.toString()
+					let layoutFileName = post.layout || 'page.hbs';
+					let layout = fs.readFileSync(
+						path.join(this.rootDir, '_layout', layoutFileName)
+					).toString()
 					let html = hbs.compile(layout)(Object.assign(post, {
 						toc: this.tocHTML(toc, fullPath),
 					}))
