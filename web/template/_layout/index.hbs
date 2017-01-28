@@ -1,0 +1,41 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+	<title>{{title}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="description" content="">
+	<meta name="generator" content="Booklog">
+
+	<link rel="stylesheet" href="/style.css" />
+</head>
+<body id="body">
+	<div id="main" class="main">
+		<div class="content-wrap">
+			<div class="site-title-wrap">
+				<span class="site-title">Your Site Name Here</span>
+				<span class="site-description">Yet Another blog. But better than others.</span>
+			</div>
+			<div class="content">{{{content}}}</div>
+			<div class="container-3d-box">
+				<div id="cube" class="cube">
+					<div class="success cube-plane">
+						<div class="cta">Thank you for signing up. I sent welcome email to your inbox. Please check it out.</div>
+					</div>
+					<div class="signup-form cube-plane">
+						<div class="cta">Do you want to get free updates? Join here!</div>
+						<form action="/subscribe" name="signup" method="POST" onsubmit="submitSubscriber(event)">
+							<input type="hidden" name="domain" value="" />
+							<input id="firstName" type="text" name="firstName" placeholder="first name" required />
+							<input id="email" type="email" name="email" placeholder="your-best@email.com" required />
+							<button id="join" type="submit">Join</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="/code.js"></script>
+</body>
+</html>

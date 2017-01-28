@@ -1,6 +1,7 @@
 ---
 title: Hello World
 date: 2017-01-25
+layout: index.hbs
 ---
 # Hello World!
 
