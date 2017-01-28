@@ -130,11 +130,12 @@ class Generator {
 
 	buildTOC(dir) {
 		let tocPath = this.findTOCPath(dir)
+		let tocDir = path.dirname(tocPath)
 		let toc = JSON.parse(fs.readFileSync(tocPath).toString())
 
 		let parser = toc => {
 			return toc.map(entry => {
-				let fullPath = path.join(dir, entry)
+				let fullPath = path.join(tocDir, entry)
 				let relPath = path.relative(this.rootDir, fullPath)
 				entry = _.isObject(entry) ? entry : {
 					file: entry,
