@@ -1,11 +1,15 @@
 function showTOC() {
 	var body = document.getElementById('body')
 	body.classList.toggle('hide-toc')
+
+	localStorage.setItem("hideTOC", body.classList.contains('hide-toc'))
 }
 
 function toggleMode() {
 	var body = document.getElementById('body')
 	body.classList.toggle('night-mode')
+
+	localStorage.setItem("nightMode", body.classList.contains('night-mode'))
 }
 
 function showFontSizeMenu() {
@@ -29,6 +33,8 @@ function changeFontSize(n) {
 	var rootSize = window.getComputedStyle(document.body).getPropertyValue('font-size')
 	rootSize = parseInt(rootSize)
 	document.getElementById("main").style.fontSize = "" + rootSize * n + "px"
+	
+	localStorage.setItem('fontSize', n)
 }
 
 function submitSubscriber(e) {
@@ -44,4 +50,21 @@ function submitSubscriber(e) {
 	xhttp.send('firstName='+name+'&email='+email);
 
 	document.getElementById("cube").classList.add("done")
+}
+
+window.onload = function() {
+	var hideTOC = localStorage.getItem('hideTOC')
+	if(hideTOC == "true") {
+		document.getElementById('body').classList.add('hide-toc')
+	}
+
+	var nightMode = localStorage.getItem('nightMode')
+	if(nightMode == 'true') {
+		document.getElementById('body').classList.add('night-mode')
+	}
+
+	var fontSize = localStorage.getItem('fontSize')
+	if(fontSize) {
+		changeFontSize(parseFloat(fontSize))
+	}
 }
