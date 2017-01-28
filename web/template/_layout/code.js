@@ -17,7 +17,7 @@ function showFontSizeMenu() {
 }
 
 window.onclick = function(event) {
-	if(!event.target.parentNode.matches('.font-btn')) {
+	if(!ancesterHasClass(event.target, 'font-btn')) {
 		var dropdowns = document.getElementsByClassName("dropdown-content");
 		var i;
 		for (i = 0; i < dropdowns.length; i++) {
@@ -26,6 +26,16 @@ window.onclick = function(event) {
 				openDropdown.classList.remove('show');
 			}
 		}
+	}
+}
+
+function ancesterHasClass(target, name) {
+	var node = target
+	while(node.tagName != "HTML") {
+		if(node.classList && node.classList.contains(name)) {
+			return true
+		}
+		node = node.parentNode
 	}
 }
 
