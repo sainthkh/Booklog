@@ -51,13 +51,14 @@ function submitSubscriber(e) {
 	e.preventDefault()
 
 	var form = document.forms["signup"]
-	var name = form.firstName
-	var email = form.email
+	var list = form.list.value
+	var name = form.firstName.value
+	var email = form.email.value
 
 	var xhttp = new XMLHttpRequest()
-	xhttp.open("POST", "subscribe", true);
+	xhttp.open("POST", "/subscribe", true);
 	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send('firstName='+name+'&email='+email);
+	xhttp.send('list='+list+'&firstName='+name+'&email='+email);
 
 	document.getElementById("cube").classList.add("done")
 }
