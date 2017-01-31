@@ -32,6 +32,7 @@ class Generator {
 		this.generateFiles(this.rootDir)
 		this.orderPosts()
 		this.generateSitemap()
+		this.generateRSS()
 		this.plugin.end(this.posts)
 	}
 
@@ -230,6 +231,32 @@ class Generator {
 		].join('\n'))
 	}
 
+	generateRSS() {
+		let { name, protocol, host } = this.site
+		let now = new Date().toISOString().split('T')[0]
+		let posts = this.orderedPosts.slice(0, 20)
+		fs.writeFileSync(path.join(this.rootDir, '_book/rss.xml'), [
+			`<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">`,
+			`<channel>`,
+			`<title>${name}</title>`,
+			`<atom:link href="${protocol}${host}/rss" rel="self"></atom:link>`,
+			`<language>en-us</language>`,
+			`<lastBuildDate>${now}</lastBuildDate>`,
+			posts.map(post => {
+				let baseUrl = qs.escape(removeExt(path.basename(post.file)))
+				let url = `${protocol}${host}/${baseUrl}`
+				return [
+					`<item>`,
+					`<title>${post.title}</title>`,
+					`<link>${url}</link>`,
+					`<description>${post.content}</description>`,
+					`<guid>${url}</guid>`,
+        			`</item>`,
+				].join('\n')
+			}).join('\n'),
+			`</channel>`,
+		].join('\n'))
+	}
 }
 
 function removeExt(name) {
