@@ -18,6 +18,7 @@ class Generator {
 	}
 
 	generate() {
+		this.loadPlugin()
 		console.log('compiling scss')
 		this.compileSCSS()
 		console.log('copying code.js')
@@ -27,6 +28,14 @@ class Generator {
 		this.build(this.rootDir)
 		console.log('generating files')
 		this.generateFiles(this.rootDir)
+		this.plugin.end(this.posts)
+	}
+
+	loadPlugin() {
+		let pluginPath = path.join(this.rootDir, '_layout/plugin/index.js')
+		this.plugin = Object.assign({
+			end: () => {},
+		}, fs.existsSync(pluginPath) ? require(pluginPath) : {})
 	}
 
 	compileSCSS() {
