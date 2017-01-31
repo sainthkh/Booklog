@@ -136,19 +136,20 @@ class Generator {
 
 		let parser = toc => {
 			return toc.map(entry => {
-				let fullPath = path.join(tocDir, entry)
-				let relPath = path.relative(this.rootDir, fullPath)
 				entry = _.isObject(entry) ? entry : {
 					file: entry,
-					name: this.posts[fullPath].title,
-					sub: []
+					sub: [],
 				}
+				let fullPath = path.join(
+					entry.file[0] == '/' ? this.rootDir : tocDir, 
+					entry.file)
+				let relPath = path.relative(this.rootDir, fullPath)
 
 				return {
 					file: fullPath,
-					path: entry.path || `/${relPath.replace(/\.[^/.]+$/, "")}`,
-					name: entry.name,
-					sub: parser(entry.sub)
+					path: entry.path || `/${removeExt(relPath).replace(/\\/g, '/')}`,
+					name: entry.name || this.posts[fullPath].title,
+					sub: entry.sub ? parser(entry.sub) : []
 				}
 			})
 		}
@@ -179,6 +180,10 @@ class Generator {
 			}
 		})
 	}
+}
+
+function removeExt(name) {
+	return name.replace(/\.[^/.]+$/, "")
 }
 
 module.exports = Generator
