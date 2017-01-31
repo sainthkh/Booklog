@@ -10,6 +10,7 @@ const sass = require('node-sass')
 
 const fs = require('fs-extra')
 const path = require('path')
+const qs = require('querystring')
 
 class Generator {
 	constructor(rootDir) {
@@ -18,6 +19,7 @@ class Generator {
 	}
 
 	generate() {
+		this.loadSiteOption()
 		this.loadPlugin()
 		console.log('compiling scss')
 		this.compileSCSS()
@@ -28,7 +30,14 @@ class Generator {
 		this.build(this.rootDir)
 		console.log('generating files')
 		this.generateFiles(this.rootDir)
+		this.orderPosts()
+		this.generateSitemap()
 		this.plugin.end(this.posts)
+	}
+
+	loadSiteOption() {
+		let optionPath = path.join(this.rootDir, 'site.json')
+		this.site = JSON.parse(fs.readFileSync(optionPath))
 	}
 
 	loadPlugin() {
@@ -189,6 +198,38 @@ class Generator {
 			}
 		})
 	}
+
+	orderPosts() {
+		this.orderedPosts = _.orderBy(
+			Object.keys(this.posts).map(k => {
+				return Object.assign(this.posts[k], {
+					file: k
+				})
+			}),
+			"date",
+			"desc"
+		)
+	}
+
+	generateSitemap() {
+		fs.writeFileSync(path.join(this.rootDir, '_book/sitemap.xml'), [
+			`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
+			this.orderedPosts.map(post => {
+				let { protocol, host } = this.site
+				let baseUrl = qs.escape(removeExt(path.basename(post.file)))
+				return [
+					`<url>`,
+					`<loc>${protocol}${host}/${baseUrl}</loc>`,
+					`<lastmod>${new Date(post.date).toISOString().split('T')[0]}</lastmod>`,
+					`<changefreq>monthly</changefreq>`,
+					`<priority>0.2</priority>`,
+					`</url>`,
+				].join('\n')
+			}).join('\n'),
+			`</urlset>`
+		].join('\n'))
+	}
+
 }
 
 function removeExt(name) {
