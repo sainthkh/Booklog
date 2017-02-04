@@ -204,7 +204,8 @@ class Generator {
 		this.orderedPosts = _.orderBy(
 			Object.keys(this.posts).map(k => {
 				return Object.assign(this.posts[k], {
-					file: k
+					file: k,
+					baseUrl: qs.escape(removeExt(path.basename(this.posts[k].file))),
 				})
 			}),
 			"date",
@@ -217,10 +218,9 @@ class Generator {
 			`<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
 			this.orderedPosts.map(post => {
 				let { protocol, host } = this.site
-				let baseUrl = qs.escape(removeExt(path.basename(post.file)))
 				return [
 					`<url>`,
-					`<loc>${protocol}${host}/${baseUrl}</loc>`,
+					`<loc>${protocol}${host}/${post.baseUrl}</loc>`,
 					`<lastmod>${new Date(post.date).toISOString().split('T')[0]}</lastmod>`,
 					`<changefreq>monthly</changefreq>`,
 					`<priority>0.2</priority>`,
@@ -244,7 +244,7 @@ class Generator {
 			`<lastBuildDate>${now}</lastBuildDate>`,
 			posts.map(post => {
 				let baseUrl = qs.escape(removeExt(path.basename(post.file)))
-				let url = `${protocol}${host}/${baseUrl}`
+				let url = `${protocol}${host}/${post.baseUrl}`
 				return [
 					`<item>`,
 					`<title>${post.title}</title>`,
