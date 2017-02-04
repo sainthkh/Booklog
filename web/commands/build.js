@@ -33,7 +33,7 @@ class Generator {
 		this.orderPosts()
 		this.generateSitemap()
 		this.generateRSS()
-		this.plugin.end(this.posts)
+		this.plugin.end(this)
 	}
 
 	loadSiteOption() {
