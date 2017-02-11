@@ -91,8 +91,12 @@ class Generator {
 
 	compile(post) {
 		post = yamlFront.parse(post)
-		post.content = marked(shortcode.parse(post.__content))
+		post.content = this.compileContent(post.__content)
 		return post
+	}
+
+	compileContent(content) {
+		return marked(shortcode.parse(content))
 	}
 
 	generateFiles(dir) {
@@ -205,7 +209,7 @@ class Generator {
 			Object.keys(this.posts).map(k => {
 				return Object.assign(this.posts[k], {
 					file: k,
-					baseUrl: qs.escape(removeExt(path.basename(this.posts[k].file))),
+					baseUrl: qs.escape(removeExt(path.basename(k))),
 				})
 			}),
 			"date",
