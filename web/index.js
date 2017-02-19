@@ -6,6 +6,7 @@ const path = require('path')
 const Generator = require('./commands/build')
 const { run } = require('./commands/server')
 const { copy } = require('./commands/init')
+const { sendMail } = require('./commands/email')
 
 program
 	.version('0.0.1')
@@ -21,6 +22,12 @@ program
 	.command('server [dir]')
 	.action((dir, options) => {
 		run(fullPath(dir))
+	})
+
+program 
+	.command('email <to> <content> [dir]')
+	.action((to, content, dir, options) => {
+		sendMail(fullPath(dir), to, content)
 	})
 
 program
