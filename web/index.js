@@ -7,6 +7,7 @@ const Generator = require('./commands/build')
 const { run } = require('./commands/server')
 const { copy } = require('./commands/init')
 const { sendMail } = require('./commands/email')
+const { subs } = require('./commands/subscribers')
 
 program
 	.version('0.0.1')
@@ -28,6 +29,12 @@ program
 	.command('email <to> <content> [dir]')
 	.action((to, content, dir, options) => {
 		sendMail(fullPath(dir), to, content)
+	})
+
+program
+	.command('subs <list> [file] [dir]')
+	.action((list, file, dir) => {
+		subs(fullPath(dir), file || "list.json", list)
 	})
 
 program
