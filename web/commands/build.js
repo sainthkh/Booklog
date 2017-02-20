@@ -78,7 +78,7 @@ class Generator {
 		fs.readdirSync(dir).forEach(name => {
 			let fullPath = path.join(dir, name)
 			let stat = fs.statSync(fullPath)
-			if(stat.isDirectory()) {
+			if(stat.isDirectory() && name[0] != '_') {
 				this.build(fullPath)
 			} else {
 				if(path.extname(name) == '.md') {
